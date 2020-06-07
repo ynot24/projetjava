@@ -36,9 +36,9 @@ public class GroupeDAO implements DAO<Groupe>{
             Statement dbStatement = dbConnect.createStatement();
             ResultSet dbResult = dbStatement.executeQuery(query);
             if(dbResult.next()){
-                g.id = dbResult.getInt("id");
-                g.nom = dbResult.getString("nom");
-                g.id_promo = dbResult.getInt("id_promo");
+                g.setId(dbResult.getInt("id"));
+                g.setNom(dbResult.getString("nom"));
+                g.setId_promo(dbResult.getInt("id_promo"));
             }
             else{
                 System.out.println("Pas de résultat");
@@ -65,8 +65,8 @@ public class GroupeDAO implements DAO<Groupe>{
             Class.forName("com.mysql.jdbc.Driver");
             Connection dbConnect = DriverManager.getConnection(url, username, pass);
             PreparedStatement dbPreparedStatement = dbConnect.prepareStatement(query);
-            dbPreparedStatement.setString(2, groupeCreate.nom);
-            dbPreparedStatement.setInt(3, groupeCreate.id_promo);
+            dbPreparedStatement.setString(2, groupeCreate.getNom());
+            dbPreparedStatement.setInt(3, groupeCreate.getId_promo());
             dbPreparedStatement.executeUpdate();
             dbPreparedStatement.close();
             dbConnect.close();
@@ -82,7 +82,7 @@ public class GroupeDAO implements DAO<Groupe>{
         String username = "root"; //Variable de type String qui stockera l'identifiant de la base de données
         String pass = ""; //Variable de type String qui stockera son mot de passe
         String url = "jdbc:mysql://localhost/timetable?autoReconnect=true&useSSL=false"; //Variable de type String qui stockera le lien vers la base de donnée
-        String query = "delete from groupe where id=" + groupeDelete.id; //Variable de type String qui stockera la requête sql
+        String query = "delete from groupe where id=" + groupeDelete.getId(); //Variable de type String qui stockera la requête sql
         
         try {
             //Création d'une connexion à la base de donnée
@@ -101,15 +101,29 @@ public class GroupeDAO implements DAO<Groupe>{
     public void update(Groupe groupeUpdate) {
         
         Groupe groupeOriginal;
-        groupeOriginal = find(groupeUpdate.id);
+        groupeOriginal = find(groupeUpdate.getId());
         
         //Déclaration des variables
         String username = "root"; //Variable de type String qui stockera l'identifiant de la base de données
         String pass = ""; //Variable de type String qui stockera son mot de passe
         String url = "jdbc:mysql://localhost/timetable?autoReconnect=true&useSSL=false"; //Variable de type String qui stockera le lien vers la base de donnée
         
-        if(groupeUpdate.nom != groupeOriginal.nom){
-            String query = "update cours set email=" + groupeUpdate.nom + "where id=" + groupeUpdate.id;
+        if(groupeUpdate.getNom() != groupeOriginal.getNom()){
+            String query = "update cours set nom='" + groupeUpdate.getNom() + "' where id=" + groupeUpdate.getId();
+            try {
+            //Création d'une connexion à la base de donnée
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection dbConnect = DriverManager.getConnection(url, username, pass);
+            Statement dbStatement = dbConnect.createStatement();
+            dbStatement.executeUpdate(query);
+            dbStatement.close();
+            dbConnect.close();
+            } catch (Exception e) {
+                System.out.println("ECHEC CONNEXION A LA BDD");
+            }
+        }
+        if(groupeUpdate.getId_promo() != groupeOriginal.getId_promo()){
+            String query = "update cours set id_promo=" + groupeUpdate.getId_promo() + " where id=" + groupeUpdate.getId();
             try {
             //Création d'une connexion à la base de donnée
             Class.forName("com.mysql.jdbc.Driver");
