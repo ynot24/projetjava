@@ -35,8 +35,8 @@ public class PromotionDAO implements DAO<Promotion>{
             Statement dbStatement = dbConnect.createStatement();
             ResultSet dbResult = dbStatement.executeQuery(query);
             if(dbResult.next()){
-                p.id = dbResult.getInt("id");
-                p.nom = dbResult.getString("nom");
+                p.setId(dbResult.getInt("id"));
+                p.setNom(dbResult.getString("nom"));
             }
             else{
                 System.out.println("Pas de résultat");
@@ -56,7 +56,7 @@ public class PromotionDAO implements DAO<Promotion>{
         String username = "root"; //Variable de type String qui stockera l'identifiant de la base de données
         String pass = ""; //Variable de type String qui stockera son mot de passe
         String url = "jdbc:mysql://localhost/timetable?autoReconnect=true&useSSL=false"; //Variable de type String qui stockera le lien vers la base de donnée
-        String query = "insert into promotion values (?," + promoCreate.nom + ")"; //Variable de type String qui stockera la requête sql
+        String query = "insert into promotion values (?," + promoCreate.getNom() + ")"; //Variable de type String qui stockera la requête sql
         
         try {
             //Création d'une connexion à la base de donnée
@@ -78,7 +78,7 @@ public class PromotionDAO implements DAO<Promotion>{
         String username = "root"; //Variable de type String qui stockera l'identifiant de la base de données
         String pass = ""; //Variable de type String qui stockera son mot de passe
         String url = "jdbc:mysql://localhost/timetable?autoReconnect=true&useSSL=false"; //Variable de type String qui stockera le lien vers la base de donnée
-        String query = "delete from promotion where id=" + promoDelete.id; //Variable de type String qui stockera la requête sql
+        String query = "delete from promotion where id=" + promoDelete.getId(); //Variable de type String qui stockera la requête sql
         
         try {
             //Création d'une connexion à la base de donnée
@@ -97,15 +97,15 @@ public class PromotionDAO implements DAO<Promotion>{
     public void update(Promotion promoUpdate) {
         
         Promotion promoOriginal;
-        promoOriginal = find(promoUpdate.id);
+        promoOriginal = find(promoUpdate.getId());
         
         //Déclaration des variables
         String username = "root"; //Variable de type String qui stockera l'identifiant de la base de données
         String pass = ""; //Variable de type String qui stockera son mot de passe
         String url = "jdbc:mysql://localhost/timetable?autoReconnect=true&useSSL=false"; //Variable de type String qui stockera le lien vers la base de donnée
         
-        if(promoUpdate.nom != promoOriginal.nom){
-            String query = "update promotion set email=" + promoUpdate.nom + "where id=" + promoUpdate.id;
+        if(promoUpdate.getNom() != promoOriginal.getNom()){
+            String query = "update promotion set nom='" + promoUpdate.getNom() + "' where id=" + promoUpdate.getId();
             try {
             //Création d'une connexion à la base de donnée
             Class.forName("com.mysql.jdbc.Driver");
