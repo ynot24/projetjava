@@ -35,8 +35,8 @@ public class SiteDAO implements DAO<Site>{
             Statement dbStatement = dbConnect.createStatement();
             ResultSet dbResult = dbStatement.executeQuery(query);
             if(dbResult.next()){
-                s.id = dbResult.getInt("id");
-                s.nom = dbResult.getString("nom");
+                s.setId(dbResult.getInt("id"));
+                s.setNom(dbResult.getString("nom"));
             }
             else{
                 System.out.println("Pas de résultat");
@@ -56,7 +56,7 @@ public class SiteDAO implements DAO<Site>{
         String username = "root"; //Variable de type String qui stockera l'identifiant de la base de données
         String pass = ""; //Variable de type String qui stockera son mot de passe
         String url = "jdbc:mysql://localhost/timetable?autoReconnect=true&useSSL=false"; //Variable de type String qui stockera le lien vers la base de donnée
-        String query = "insert into site values (?," + siteCreate.nom + ")"; //Variable de type String qui stockera la requête sql
+        String query = "insert into site values (?," + siteCreate.getNom() + ")"; //Variable de type String qui stockera la requête sql
         
         try {
             //Création d'une connexion à la base de donnée
@@ -78,7 +78,7 @@ public class SiteDAO implements DAO<Site>{
         String username = "root"; //Variable de type String qui stockera l'identifiant de la base de données
         String pass = ""; //Variable de type String qui stockera son mot de passe
         String url = "jdbc:mysql://localhost/timetable?autoReconnect=true&useSSL=false"; //Variable de type String qui stockera le lien vers la base de donnée
-        String query = "delete from site where id=" + siteDelete.id; //Variable de type String qui stockera la requête sql
+        String query = "delete from site where id=" + siteDelete.getId(); //Variable de type String qui stockera la requête sql
         
         try {
             //Création d'une connexion à la base de donnée
@@ -97,15 +97,15 @@ public class SiteDAO implements DAO<Site>{
     public void update(Site siteUpdate) {
         
         Site siteOriginal;
-        siteOriginal = find(siteUpdate.id);
+        siteOriginal = find(siteUpdate.getId());
         
         //Déclaration des variables
         String username = "root"; //Variable de type String qui stockera l'identifiant de la base de données
         String pass = ""; //Variable de type String qui stockera son mot de passe
         String url = "jdbc:mysql://localhost/timetable?autoReconnect=true&useSSL=false"; //Variable de type String qui stockera le lien vers la base de donnée
         
-        if(siteUpdate.nom != siteOriginal.nom){
-            String query = "update site set email=" + siteUpdate.nom + "where id=" + siteUpdate.id;
+        if(siteUpdate.getNom() != siteOriginal.getNom()){
+            String query = "update site set nom='" + siteUpdate.getNom() + "' where id=" + siteUpdate.getId();
             try {
             //Création d'une connexion à la base de donnée
             Class.forName("com.mysql.jdbc.Driver");
