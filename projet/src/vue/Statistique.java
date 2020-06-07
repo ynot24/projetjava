@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package vue;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import org.jfree.chart.ChartFactory;
@@ -13,7 +12,6 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
 
 /**
  * Classe qui définit un camembert 
@@ -53,16 +51,4 @@ public class Statistique extends ApplicationFrame {
        JFreeChart chart = createChart(createDataset());  
        return new ChartPanel(chart); 
     }
-    
-    /*
-    public static void main(String[ ] args) {
-
-        Statistique demo = new Statistique(" ");  
-        demo.setSize(560,367);    
-        RefineryUtilities.centerFrameOnScreen(demo);    
-        demo.setVisible(true);
-
-    }
-    */
-    
 }

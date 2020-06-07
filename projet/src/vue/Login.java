@@ -39,6 +39,7 @@ public class Login {
 
     //Constructeur avec héritage de la classe mère Jframe
     public Login(){
+        
         frame = new JFrame();
         frame.setTitle("Page de connexion à l'hyperplanning");
         frame.setSize(600,250);
@@ -128,28 +129,23 @@ public class Login {
                         
                     case 2:
                         //Page Charge de cours
+                        Referent ref = new Referent();
                         break;
                         
                     case 3:
                         //Page Enseignant
+                        Professeur prof = new Professeur(u.getId());
                         break;
                         
                     case 4:
                         //Page Etudiant
+                        Eleve eleve = new Eleve(u.getId());
                         break;
                         
                     default:
                         break;
                 }
                 
-                /*
-                JFrame unePage = new JFrame();
-                unePage.setTitle("EDT");
-                unePage.setSize(600,250);
-                unePage.setLocationRelativeTo(null);
-                unePage.setResizable(false);
-                unePage.setVisible(true);
-                */
             }else{
                 Login login = new Login();
             }
