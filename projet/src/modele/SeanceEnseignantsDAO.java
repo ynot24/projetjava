@@ -36,8 +36,8 @@ public class SeanceEnseignantsDAO implements DAO<SeanceEnseignants>{
             Statement dbStatement = dbConnect.createStatement();
             ResultSet dbResult = dbStatement.executeQuery(query);
             if(dbResult.next()){
-                ste.id_seance = dbResult.getInt("id_seance");
-                ste.id_enseignant = dbResult.getInt("id_enseignant");
+                ste.setId_seance(dbResult.getInt("id_seance"));
+                ste.setId_enseignant(dbResult.getInt("id_enseignant"));
             }
             else{
                 System.out.println("Pas de résultat");
@@ -64,8 +64,8 @@ public class SeanceEnseignantsDAO implements DAO<SeanceEnseignants>{
             Class.forName("com.mysql.jdbc.Driver");
             Connection dbConnect = DriverManager.getConnection(url, username, pass);
             PreparedStatement dbPreparedStatement = dbConnect.prepareStatement(query);
-            dbPreparedStatement.setInt(1, steCreate.id_seance);
-            dbPreparedStatement.setInt(2, steCreate.id_enseignant);
+            dbPreparedStatement.setInt(1, steCreate.getId_seance());
+            dbPreparedStatement.setInt(2, steCreate.getId_enseignant());
             dbPreparedStatement.executeUpdate();
             dbPreparedStatement.close();
             dbConnect.close();
@@ -81,7 +81,7 @@ public class SeanceEnseignantsDAO implements DAO<SeanceEnseignants>{
         String username = "root"; //Variable de type String qui stockera l'identifiant de la base de données
         String pass = ""; //Variable de type String qui stockera son mot de passe
         String url = "jdbc:mysql://localhost/timetable?autoReconnect=true&useSSL=false"; //Variable de type String qui stockera le lien vers la base de donnée
-        String query = "delete from seance_enseignants where id_seance=" + steDelete.id_seance; //Variable de type String qui stockera la requête sql
+        String query = "delete from seance_enseignants where id_seance=" + steDelete.getId_seance(); //Variable de type String qui stockera la requête sql
         
         try {
             //Création d'une connexion à la base de donnée
@@ -100,15 +100,15 @@ public class SeanceEnseignantsDAO implements DAO<SeanceEnseignants>{
     public void update(SeanceEnseignants steUpdate) {
         
         SeanceEnseignants steOriginal;
-        steOriginal = find(steUpdate.id_seance);
+        steOriginal = find(steUpdate.getId_seance());
         
         //Déclaration des variables
         String username = "root"; //Variable de type String qui stockera l'identifiant de la base de données
         String pass = ""; //Variable de type String qui stockera son mot de passe
         String url = "jdbc:mysql://localhost/timetable?autoReconnect=true&useSSL=false"; //Variable de type String qui stockera le lien vers la base de donnée
         
-        if(steUpdate.id_enseignant != steOriginal.id_enseignant){
-            String query = "update seance_enseignants set id_enseignant=" + steUpdate.id_enseignant + "where id_seance=" + steUpdate.id_seance;
+        if(steUpdate.getId_enseignant() != steOriginal.getId_enseignant()){
+            String query = "update seance_enseignants set id_enseignant=" + steUpdate.getId_enseignant() + " where id_seance=" + steUpdate.getId_seance();
             try {
             //Création d'une connexion à la base de donnée
             Class.forName("com.mysql.jdbc.Driver");
