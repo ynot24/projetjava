@@ -36,8 +36,8 @@ public class SeanceGroupesDAO implements DAO<SeanceGroupes>{
             Statement dbStatement = dbConnect.createStatement();
             ResultSet dbResult = dbStatement.executeQuery(query);
             if(dbResult.next()){
-                sg.id_seance = dbResult.getInt("id_seance");
-                sg.id_groupe = dbResult.getInt("id_groupe");
+                sg.setId_seance(dbResult.getInt("id_seance"));
+                sg.setId_groupe(dbResult.getInt("id_groupe"));
             }
             else{
                 System.out.println("Pas de résultat");
@@ -64,8 +64,8 @@ public class SeanceGroupesDAO implements DAO<SeanceGroupes>{
             Class.forName("com.mysql.jdbc.Driver");
             Connection dbConnect = DriverManager.getConnection(url, username, pass);
             PreparedStatement dbPreparedStatement = dbConnect.prepareStatement(query);
-            dbPreparedStatement.setInt(1, sgCreate.id_seance);
-            dbPreparedStatement.setInt(2, sgCreate.id_groupe);
+            dbPreparedStatement.setInt(1, sgCreate.getId_seance());
+            dbPreparedStatement.setInt(2, sgCreate.getId_groupe());
             dbPreparedStatement.executeUpdate();
             dbPreparedStatement.close();
             dbConnect.close();
@@ -81,7 +81,7 @@ public class SeanceGroupesDAO implements DAO<SeanceGroupes>{
         String username = "root"; //Variable de type String qui stockera l'identifiant de la base de données
         String pass = ""; //Variable de type String qui stockera son mot de passe
         String url = "jdbc:mysql://localhost/timetable?autoReconnect=true&useSSL=false"; //Variable de type String qui stockera le lien vers la base de donnée
-        String query = "delete from seance_groupes where id_seance=" + sgDelete.id_seance; //Variable de type String qui stockera la requête sql
+        String query = "delete from seance_groupes where id_seance=" + sgDelete.getId_seance(); //Variable de type String qui stockera la requête sql
         
         try {
             //Création d'une connexion à la base de donnée
@@ -100,7 +100,7 @@ public class SeanceGroupesDAO implements DAO<SeanceGroupes>{
     public void update(SeanceGroupes sgUpdate) {
         
         SeanceGroupes sgOriginal;
-        sgOriginal = find(sgUpdate.id_seance);
+        sgOriginal = find(sgUpdate.getId_seance());
         
         //Déclaration des variables
         String username = "root"; //Variable de type String qui stockera l'identifiant de la base de données
@@ -108,7 +108,7 @@ public class SeanceGroupesDAO implements DAO<SeanceGroupes>{
         String url = "jdbc:mysql://localhost/timetable?autoReconnect=true&useSSL=false"; //Variable de type String qui stockera le lien vers la base de donnée
         
         if(sgUpdate.id_groupe != sgOriginal.id_groupe){
-            String query = "update seance_groupes set id_groupe=" + sgUpdate.id_groupe + "where id_seance=" + sgUpdate.id_seance;
+            String query = "update seance_groupes set id_groupe=" + sgUpdate.getId_groupe() + " where id_seance=" + sgUpdate.getId_seance();
             try {
             //Création d'une connexion à la base de donnée
             Class.forName("com.mysql.jdbc.Driver");
