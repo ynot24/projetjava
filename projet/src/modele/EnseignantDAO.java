@@ -35,8 +35,8 @@ public class EnseignantDAO implements DAO<Enseignant>{
             Statement dbStatement = dbConnect.createStatement();
             ResultSet dbResult = dbStatement.executeQuery(query);
             if(dbResult.next()){
-                st.id_user = dbResult.getInt("id_user");
-                st.id_cours = dbResult.getInt("id_groupe");
+                st.setId_user(dbResult.getInt("id_user"));
+                st.setId_cours(dbResult.getInt("id_groupe"));
             }
             else{
                 System.out.println("Pas de résultat");
@@ -56,7 +56,7 @@ public class EnseignantDAO implements DAO<Enseignant>{
         String username = "root"; //Variable de type String qui stockera l'identifiant de la base de données
         String pass = ""; //Variable de type String qui stockera son mot de passe
         String url = "jdbc:mysql://localhost/timetable?autoReconnect=true&useSSL=false"; //Variable de type String qui stockera le lien vers la base de donnée
-        String query = "insert into enseignant values (?," + tCreate.id_cours + ")"; //Variable de type String qui stockera la requête sql
+        String query = "insert into enseignant values (?," + tCreate.getId_cours() + ")"; //Variable de type String qui stockera la requête sql
         
         try {
             //Création d'une connexion à la base de donnée
@@ -78,7 +78,7 @@ public class EnseignantDAO implements DAO<Enseignant>{
         String username = "root"; //Variable de type String qui stockera l'identifiant de la base de données
         String pass = ""; //Variable de type String qui stockera son mot de passe
         String url = "jdbc:mysql://localhost/timetable?autoReconnect=true&useSSL=false"; //Variable de type String qui stockera le lien vers la base de donnée
-        String query = "delete from enseignant where id_user=" + tDelete.id_user; //Variable de type String qui stockera la requête sql
+        String query = "delete from enseignant where id_user=" + tDelete.getId_user(); //Variable de type String qui stockera la requête sql
         
         try {
             //Création d'une connexion à la base de donnée
@@ -97,7 +97,7 @@ public class EnseignantDAO implements DAO<Enseignant>{
     public void update(Enseignant tUpdate) {
         
         Enseignant tOriginal;
-        tOriginal = find(tUpdate.id_user);
+        tOriginal = find(tUpdate.getId_user());
         
         //Déclaration des variables
         String username = "root"; //Variable de type String qui stockera l'identifiant de la base de données
@@ -105,7 +105,7 @@ public class EnseignantDAO implements DAO<Enseignant>{
         String url = "jdbc:mysql://localhost/timetable?autoReconnect=true&useSSL=false"; //Variable de type String qui stockera le lien vers la base de donnée
         
         if(tUpdate.id_cours != tOriginal.id_cours){
-            String query = "update enseignant set id_cours=" + tUpdate.id_cours + "where id_user=" + tUpdate.id_user;
+            String query = "update enseignant set id_cours=" + tUpdate.getId_cours() + " where id_user=" + tUpdate.getId_user();
             try {
             //Création d'une connexion à la base de donnée
             Class.forName("com.mysql.jdbc.Driver");
