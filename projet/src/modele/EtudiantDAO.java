@@ -36,9 +36,9 @@ public class EtudiantDAO implements DAO<Etudiant>{
             Statement dbStatement = dbConnect.createStatement();
             ResultSet dbResult = dbStatement.executeQuery(query);
             if(dbResult.next()){
-                st.id_user = dbResult.getInt("id_user");
-                st.numero = dbResult.getInt("numero");
-                st.id_groupe = dbResult.getInt("id_groupe");
+                st.setId_user(dbResult.getInt("id_user"));
+                st.setNumero(dbResult.getInt("numero"));
+                st.setId_groupe(dbResult.getInt("id_groupe"));
             }
             else{
                 System.out.println("Pas de résultat");
@@ -65,9 +65,9 @@ public class EtudiantDAO implements DAO<Etudiant>{
             Class.forName("com.mysql.jdbc.Driver");
             Connection dbConnect = DriverManager.getConnection(url, username, pass);
             PreparedStatement dbPreparedStatement = dbConnect.prepareStatement(query);
-            dbPreparedStatement.setInt(1, stCreate.id_user);
-            dbPreparedStatement.setInt(2, stCreate.numero);
-            dbPreparedStatement.setInt(3, stCreate.id_groupe);
+            dbPreparedStatement.setInt(1, stCreate.getId_user());
+            dbPreparedStatement.setInt(2, stCreate.getNumero());
+            dbPreparedStatement.setInt(3, stCreate.getId_groupe());
             dbPreparedStatement.executeUpdate();
             dbPreparedStatement.close();
             dbConnect.close();
@@ -83,7 +83,7 @@ public class EtudiantDAO implements DAO<Etudiant>{
         String username = "root"; //Variable de type String qui stockera l'identifiant de la base de données
         String pass = ""; //Variable de type String qui stockera son mot de passe
         String url = "jdbc:mysql://localhost/timetable?autoReconnect=true&useSSL=false"; //Variable de type String qui stockera le lien vers la base de donnée
-        String query = "delete from groupe where id_user=" + stDelete.id_user; //Variable de type String qui stockera la requête sql
+        String query = "delete from groupe where id_user=" + stDelete.getId_user(); //Variable de type String qui stockera la requête sql
         
         try {
             //Création d'une connexion à la base de donnée
@@ -102,15 +102,15 @@ public class EtudiantDAO implements DAO<Etudiant>{
     public void update(Etudiant stUpdate) {
         
         Etudiant stOriginal;
-        stOriginal = find(stUpdate.id_user);
+        stOriginal = find(stUpdate.getId_user());
         
         //Déclaration des variables
         String username = "root"; //Variable de type String qui stockera l'identifiant de la base de données
         String pass = ""; //Variable de type String qui stockera son mot de passe
         String url = "jdbc:mysql://localhost/timetable?autoReconnect=true&useSSL=false"; //Variable de type String qui stockera le lien vers la base de donnée
         
-        if(stUpdate.numero != stOriginal.numero){
-            String query = "update etudiant set numero=" + stUpdate.numero + "where id_user=" + stUpdate.id_user;
+        if(stUpdate.getNumero() != stOriginal.getNumero()){
+            String query = "update etudiant set numero=" + stUpdate.getNumero() + "where id_user=" + stUpdate.getId_user();
             try {
             //Création d'une connexion à la base de donnée
             Class.forName("com.mysql.jdbc.Driver");
@@ -123,8 +123,8 @@ public class EtudiantDAO implements DAO<Etudiant>{
                 System.out.println("ECHEC CONNEXION A LA BDD");
             }
         }
-        else if(stUpdate.id_groupe != stOriginal.id_groupe){
-            String query = "update etudiant set id_groupe=" + stUpdate.id_groupe + "where id_user=" + stUpdate.id_user;
+        if(stUpdate.getId_groupe() != stOriginal.getId_groupe()){
+            String query = "update etudiant set id_groupe=" + stUpdate.getId_groupe() + " where id_user=" + stUpdate.getId_groupe();
             try {
             //Création d'une connexion à la base de donnée
             Class.forName("com.mysql.jdbc.Driver");
