@@ -72,7 +72,7 @@ public class Eleve {
             String query2 = "SELECT * FROM seance_groupes INNER JOIN seance ON seance_groupes.id_seance=seance.id WHERE seance_groupes.id_groupe=" + id_groupe;
             dbResult = dbStatement.executeQuery(query1);
             while(dbResult.next()){
-                eleve[i][]
+                //eleve[i][]
             }
          } catch (Exception e) {
             
