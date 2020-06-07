@@ -35,8 +35,8 @@ public class TypeCoursDAO implements DAO<TypeCours>{
             Statement dbStatement = dbConnect.createStatement();
             ResultSet dbResult = dbStatement.executeQuery(query);
             if(dbResult.next()){
-                t.id = dbResult.getInt("id");
-                t.nom = dbResult.getString("nom");
+                t.setId(dbResult.getInt("id"));
+                t.setNom(dbResult.getString("nom"));
             }
             else{
                 System.out.println("Pas de résultat");
@@ -56,7 +56,7 @@ public class TypeCoursDAO implements DAO<TypeCours>{
         String username = "root"; //Variable de type String qui stockera l'identifiant de la base de données
         String pass = ""; //Variable de type String qui stockera son mot de passe
         String url = "jdbc:mysql://localhost/timetable?autoReconnect=true&useSSL=false"; //Variable de type String qui stockera le lien vers la base de donnée
-        String query = "insert into type_cours values (?," + typeCreate.nom + ")"; //Variable de type String qui stockera la requête sql
+        String query = "insert into type_cours values (?," + typeCreate.getNom() + ")"; //Variable de type String qui stockera la requête sql
         
         try {
             //Création d'une connexion à la base de donnée
@@ -78,7 +78,7 @@ public class TypeCoursDAO implements DAO<TypeCours>{
         String username = "root"; //Variable de type String qui stockera l'identifiant de la base de données
         String pass = ""; //Variable de type String qui stockera son mot de passe
         String url = "jdbc:mysql://localhost/timetable?autoReconnect=true&useSSL=false"; //Variable de type String qui stockera le lien vers la base de donnée
-        String query = "delete from type_cours where id=" + typeDelete.id; //Variable de type String qui stockera la requête sql
+        String query = "delete from type_cours where id=" + typeDelete.getId(); //Variable de type String qui stockera la requête sql
         
         try {
             //Création d'une connexion à la base de donnée
@@ -97,15 +97,15 @@ public class TypeCoursDAO implements DAO<TypeCours>{
     public void update(TypeCours typeUpdate) {
         
         TypeCours typeOriginal;
-        typeOriginal = find(typeUpdate.id);
+        typeOriginal = find(typeUpdate.getId());
         
         //Déclaration des variables
         String username = "root"; //Variable de type String qui stockera l'identifiant de la base de données
         String pass = ""; //Variable de type String qui stockera son mot de passe
         String url = "jdbc:mysql://localhost/timetable?autoReconnect=true&useSSL=false"; //Variable de type String qui stockera le lien vers la base de donnée
         
-        if(typeUpdate.nom != typeOriginal.nom){
-            String query = "update type_update set email=" + typeUpdate.nom + "where id=" + typeUpdate.id;
+        if(typeUpdate.getNom() != typeOriginal.getNom()){
+            String query = "update type_update set nom='" + typeUpdate.getNom() + "' where id=" + typeUpdate.getId();
             try {
             //Création d'une connexion à la base de donnée
             Class.forName("com.mysql.jdbc.Driver");
