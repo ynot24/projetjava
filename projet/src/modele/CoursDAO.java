@@ -35,8 +35,8 @@ public class CoursDAO implements DAO<Cours>{
             Statement dbStatement = dbConnect.createStatement();
             ResultSet dbResult = dbStatement.executeQuery(query);
             if(dbResult.next()){
-                c.id = dbResult.getInt("id");
-                c.nom = dbResult.getString("nom");
+                c.setId(dbResult.getInt("id"));
+                c.setNom(dbResult.getString("nom"));
             }
             else{
                 System.out.println("Pas de résultat");
@@ -56,7 +56,7 @@ public class CoursDAO implements DAO<Cours>{
         String username = "root"; //Variable de type String qui stockera l'identifiant de la base de données
         String pass = ""; //Variable de type String qui stockera son mot de passe
         String url = "jdbc:mysql://localhost/timetable?autoReconnect=true&useSSL=false"; //Variable de type String qui stockera le lien vers la base de donnée
-        String query = "insert into cours values (?," + coursCreate.nom + ")"; //Variable de type String qui stockera la requête sql
+        String query = "insert into cours values (?," + coursCreate.getNom() + ")"; //Variable de type String qui stockera la requête sql
         
         try {
             //Création d'une connexion à la base de donnée
@@ -78,7 +78,7 @@ public class CoursDAO implements DAO<Cours>{
         String username = "root"; //Variable de type String qui stockera l'identifiant de la base de données
         String pass = ""; //Variable de type String qui stockera son mot de passe
         String url = "jdbc:mysql://localhost/timetable?autoReconnect=true&useSSL=false"; //Variable de type String qui stockera le lien vers la base de donnée
-        String query = "delete from cours where id=" + coursDelete.id; //Variable de type String qui stockera la requête sql
+        String query = "delete from cours where id=" + coursDelete.getId(); //Variable de type String qui stockera la requête sql
         
         try {
             //Création d'une connexion à la base de donnée
@@ -97,7 +97,7 @@ public class CoursDAO implements DAO<Cours>{
     public void update(Cours coursUpdate) {
         
         Cours coursOriginal;
-        coursOriginal = find(coursUpdate.id);
+        coursOriginal = find(coursUpdate.getId());
         
         //Déclaration des variables
         String username = "root"; //Variable de type String qui stockera l'identifiant de la base de données
@@ -105,7 +105,7 @@ public class CoursDAO implements DAO<Cours>{
         String url = "jdbc:mysql://localhost/timetable?autoReconnect=true&useSSL=false"; //Variable de type String qui stockera le lien vers la base de donnée
         
         if(coursUpdate.nom != coursOriginal.nom){
-            String query = "update cours set email=" + coursUpdate.nom + "where id=" + coursUpdate.id;
+            String query = "update cours set nom='" + coursUpdate.getNom() + "' where id=" + coursUpdate.getId();
             try {
             //Création d'une connexion à la base de donnée
             Class.forName("com.mysql.jdbc.Driver");
