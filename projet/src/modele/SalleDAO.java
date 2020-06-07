@@ -36,10 +36,10 @@ public class SalleDAO implements DAO<Salle>{
             Statement dbStatement = dbConnect.createStatement();
             ResultSet dbResult = dbStatement.executeQuery(query);
             if(dbResult.next()){
-                cr.id = dbResult.getInt("id");
-                cr.nom = dbResult.getString("nom");
-                cr.capacite = dbResult.getInt("capacite");
-                cr.id_site = dbResult.getInt("id_site");
+                cr.setId(dbResult.getInt("id"));
+                cr.setNom(dbResult.getString("nom"));
+                cr.setCapacite(dbResult.getInt("capacite"));
+                cr.setId_site(dbResult.getInt("id_site"));
             }
             else{
                 System.out.println("Pas de résultat");
@@ -67,9 +67,9 @@ public class SalleDAO implements DAO<Salle>{
             Class.forName("com.mysql.jdbc.Driver");
             Connection dbConnect = DriverManager.getConnection(url, username, pass);
             PreparedStatement dbPreparedStatement = dbConnect.prepareStatement(query);
-            dbPreparedStatement.setString(2, crCreate.nom);
-            dbPreparedStatement.setInt(3, crCreate.capacite);
-            dbPreparedStatement.setInt(4, crCreate.id_site);
+            dbPreparedStatement.setString(2, crCreate.getNom());
+            dbPreparedStatement.setInt(3, crCreate.getCapacite());
+            dbPreparedStatement.setInt(4, crCreate.getId_site());
             dbPreparedStatement.executeUpdate();
             dbPreparedStatement.close();
             dbConnect.close();
@@ -85,7 +85,7 @@ public class SalleDAO implements DAO<Salle>{
         String username = "root"; //Variable de type String qui stockera l'identifiant de la base de données
         String pass = ""; //Variable de type String qui stockera son mot de passe
         String url = "jdbc:mysql://localhost/timetable?autoReconnect=true&useSSL=false"; //Variable de type String qui stockera le lien vers la base de donnée
-        String query = "delete from salle where id=" + crDelete.id; //Variable de type String qui stockera la requête sql
+        String query = "delete from salle where id=" + crDelete.getId(); //Variable de type String qui stockera la requête sql
         
         try {
             //Création d'une connexion à la base de donnée
@@ -104,7 +104,7 @@ public class SalleDAO implements DAO<Salle>{
     public void update(Salle crUpdate) {
         
         Salle crOriginal;
-        crOriginal = find(crUpdate.id);
+        crOriginal = find(crUpdate.getId());
         
         //Déclaration des variables
         String username = "root"; //Variable de type String qui stockera l'identifiant de la base de données
@@ -112,7 +112,7 @@ public class SalleDAO implements DAO<Salle>{
         String url = "jdbc:mysql://localhost/timetable?autoReconnect=true&useSSL=false"; //Variable de type String qui stockera le lien vers la base de donnée
         
         if(crUpdate.nom != crOriginal.nom){
-            String query = "update salle set nom=" + crUpdate.nom + "where id=" + crUpdate.id;
+            String query = "update salle set nom='" + crUpdate.getNom() + "' where id=" + crUpdate.getId();
             try {
             //Création d'une connexion à la base de donnée
             Class.forName("com.mysql.jdbc.Driver");
@@ -125,8 +125,8 @@ public class SalleDAO implements DAO<Salle>{
                 System.out.println("ECHEC CONNEXION A LA BDD");
             }
         }
-        else if(crUpdate.capacite != crOriginal.capacite){
-            String query = "update salle set capacite=" + crUpdate.capacite + "where id=" + crUpdate.id;
+        if(crUpdate.capacite != crOriginal.capacite){
+            String query = "update salle set capacite=" + crUpdate.getCapacite() + " where id=" + crUpdate.getId();
             try {
             //Création d'une connexion à la base de donnée
             Class.forName("com.mysql.jdbc.Driver");
@@ -139,8 +139,8 @@ public class SalleDAO implements DAO<Salle>{
                 System.out.println("ECHEC CONNEXION A LA BDD");
             }
         }
-        else if(crUpdate.id_site != crOriginal.id_site){
-            String query = "update salle set id_site=" + crUpdate.id_site + "where id=" + crUpdate.id;
+        if(crUpdate.getId_site() != crOriginal.getId_site()){
+            String query = "update salle set id_site=" + crUpdate.getId_site() + " where id=" + crUpdate.getId();
             try {
             //Création d'une connexion à la base de donnée
             Class.forName("com.mysql.jdbc.Driver");
