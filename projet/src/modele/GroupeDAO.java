@@ -12,9 +12,13 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 /**
- *
+ * 
+ * Classe qui implémente l'interface DAO de type Groupe
+ * 
  * @author Tony
+ * 
  */
+
 public class GroupeDAO implements DAO<Groupe>{
     
     @Override
@@ -65,6 +69,7 @@ public class GroupeDAO implements DAO<Groupe>{
             Class.forName("com.mysql.jdbc.Driver");
             Connection dbConnect = DriverManager.getConnection(url, username, pass);
             PreparedStatement dbPreparedStatement = dbConnect.prepareStatement(query);
+            dbPreparedStatement.setInt(1, groupeCreate.getId());
             dbPreparedStatement.setString(2, groupeCreate.getNom());
             dbPreparedStatement.setInt(3, groupeCreate.getId_promo());
             dbPreparedStatement.executeUpdate();

@@ -6,9 +6,13 @@
 package modele;
 
 /**
- *
+ * 
+ * Classe qui définit les attributs de la table groupe
+ * 
  * @author Tony
+ * 
  */
+
 public class Groupe {
     
     //DDV

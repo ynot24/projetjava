@@ -7,13 +7,18 @@ package modele;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
 /**
- *
+ * 
+ * Classe qui implémente l'interface DAO de type Promotion
+ * 
  * @author Tony
+ * 
  */
+
 public class PromotionDAO implements DAO<Promotion>{
     
     @Override
@@ -56,15 +61,16 @@ public class PromotionDAO implements DAO<Promotion>{
         String username = "root"; //Variable de type String qui stockera l'identifiant de la base de données
         String pass = ""; //Variable de type String qui stockera son mot de passe
         String url = "jdbc:mysql://localhost/timetable?autoReconnect=true&useSSL=false"; //Variable de type String qui stockera le lien vers la base de donnée
-        String query = "insert into promotion values (?," + promoCreate.getNom() + ")"; //Variable de type String qui stockera la requête sql
+        String query = "insert into promotion values (?,?)"; //Variable de type String qui stockera la requête sql
         
         try {
             //Création d'une connexion à la base de donnée
             Class.forName("com.mysql.jdbc.Driver");
             Connection dbConnect = DriverManager.getConnection(url, username, pass);
-            Statement dbStatement = dbConnect.createStatement();
-            dbStatement.executeUpdate(query);
-            dbStatement.close();
+            PreparedStatement dbPreparedStatement = dbConnect.prepareStatement(query);
+            dbPreparedStatement.setInt(1, promoCreate.getId());
+            dbPreparedStatement.setString(2, promoCreate.getNom());
+            dbPreparedStatement.close();
             dbConnect.close();
         } catch (Exception e) {
             System.out.println("ECHEC CONNEXION A LA BDD");

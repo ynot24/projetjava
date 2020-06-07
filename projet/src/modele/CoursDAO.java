@@ -7,13 +7,18 @@ package modele;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
 /**
- *
+ * 
+ * Classe qui implémente l'interface DAO de type Cours
+ * 
  * @author Tony
+ * 
  */
+
 public class CoursDAO implements DAO<Cours>{
     
     @Override
@@ -62,9 +67,10 @@ public class CoursDAO implements DAO<Cours>{
             //Création d'une connexion à la base de donnée
             Class.forName("com.mysql.jdbc.Driver");
             Connection dbConnect = DriverManager.getConnection(url, username, pass);
-            Statement dbStatement = dbConnect.createStatement();
-            dbStatement.executeUpdate(query);
-            dbStatement.close();
+            PreparedStatement dbPreparedStatement = dbConnect.prepareStatement(query);
+            dbPreparedStatement.setInt(1, coursCreate.getId());
+            dbPreparedStatement.setString(2, coursCreate.getNom());
+            dbPreparedStatement.close();
             dbConnect.close();
         } catch (Exception e) {
             System.out.println("ECHEC CONNEXION A LA BDD");

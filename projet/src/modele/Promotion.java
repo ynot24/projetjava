@@ -6,9 +6,13 @@
 package modele;
 
 /**
- *
+ * 
+ * Classe qui définit les attributs de la table promotion
+ * 
  * @author Tony
+ * 
  */
+
 public class Promotion {
     
     //DDV

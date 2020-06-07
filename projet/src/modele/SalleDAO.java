@@ -12,9 +12,13 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 /**
- *
+ * 
+ * Classe qui implémente l'interface DAO de type Salle
+ * 
  * @author Tony
+ * 
  */
+
 public class SalleDAO implements DAO<Salle>{
     
     @Override
@@ -67,6 +71,7 @@ public class SalleDAO implements DAO<Salle>{
             Class.forName("com.mysql.jdbc.Driver");
             Connection dbConnect = DriverManager.getConnection(url, username, pass);
             PreparedStatement dbPreparedStatement = dbConnect.prepareStatement(query);
+            dbPreparedStatement.setInt(1, crCreate.getId());
             dbPreparedStatement.setString(2, crCreate.getNom());
             dbPreparedStatement.setInt(3, crCreate.getCapacite());
             dbPreparedStatement.setInt(4, crCreate.getId_site());
@@ -111,7 +116,7 @@ public class SalleDAO implements DAO<Salle>{
         String pass = ""; //Variable de type String qui stockera son mot de passe
         String url = "jdbc:mysql://localhost/timetable?autoReconnect=true&useSSL=false"; //Variable de type String qui stockera le lien vers la base de donnée
         
-        if(crUpdate.nom != crOriginal.nom){
+        if(crUpdate.getNom() != crOriginal.getNom()){
             String query = "update salle set nom='" + crUpdate.getNom() + "' where id=" + crUpdate.getId();
             try {
             //Création d'une connexion à la base de donnée
@@ -125,7 +130,7 @@ public class SalleDAO implements DAO<Salle>{
                 System.out.println("ECHEC CONNEXION A LA BDD");
             }
         }
-        if(crUpdate.capacite != crOriginal.capacite){
+        if(crUpdate.getCapacite() != crOriginal.getCapacite()){
             String query = "update salle set capacite=" + crUpdate.getCapacite() + " where id=" + crUpdate.getId();
             try {
             //Création d'une connexion à la base de donnée

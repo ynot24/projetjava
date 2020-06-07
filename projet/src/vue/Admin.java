@@ -23,9 +23,15 @@ import modele.Utilisateur;
 import modele.UtilisateurDAO;
 
 /**
- *
+ * 
+ * Classe qui définit une page administrateur 
+ * où il est possible d'ajouter, 
+ * supprimer ou de mettre à jour des utilisateurs.
+ * 
  * @author Tony
+ * 
  */
+
 public class Admin {
     
     private static JButton ajoutButton, supprButton, majButton;

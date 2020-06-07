@@ -6,9 +6,13 @@
 package modele;
 
 /**
- *
+ * 
+ * Classe qui définit les attributs de la table seance_groupes
+ * 
  * @author Tony
+ * 
  */
+
 public class SeanceGroupes {
     
     //DDV

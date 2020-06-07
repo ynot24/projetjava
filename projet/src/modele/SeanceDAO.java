@@ -12,9 +12,13 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 /**
- *
+ * 
+ * Classe qui implémente l'interface DAO de type Seance
+ * 
  * @author Tony
+ * 
  */
+
 public class SeanceDAO implements DAO<Seance>{
     
     @Override
@@ -71,6 +75,7 @@ public class SeanceDAO implements DAO<Seance>{
             Class.forName("com.mysql.jdbc.Driver");
             Connection dbConnect = DriverManager.getConnection(url, username, pass);
             PreparedStatement dbPreparedStatement = dbConnect.prepareStatement(query);
+            dbPreparedStatement.setInt(1, seCreate.getId());
             dbPreparedStatement.setInt(2, seCreate.getSemaine());
             dbPreparedStatement.setString(3, seCreate.getDate());
             dbPreparedStatement.setString(4, seCreate.getHeure_debut());

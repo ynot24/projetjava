@@ -12,9 +12,13 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 /**
- *
+ * 
+ * Classe qui implémente l'interface DAO de type SeanceSalles
+ * 
  * @author Tony
+ * 
  */
+
 public class SeanceSallesDAO implements DAO<SeanceSalles>{
     
     @Override

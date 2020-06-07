@@ -6,9 +6,13 @@
 package modele;
 
 /**
- *
+ * 
+ * Classe qui définit les attributs de la table site
+ * 
  * @author Tony
+ * 
  */
+
 public class Site {
     
     //DDV

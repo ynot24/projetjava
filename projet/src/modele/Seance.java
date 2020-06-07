@@ -7,9 +7,13 @@ package modele;
 
 
 /**
- *
+ * 
+ * Classe qui définit les attributs de la table seance
+ * 
  * @author Tony
+ * 
  */
+
 public class Seance {
     
     //DDV

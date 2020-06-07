@@ -6,9 +6,13 @@
 package modele;
 
 /**
- *
+ * 
+ * Classe qui définit les attributs de la table type_cours
+ * 
  * @author Tony
+ * 
  */
+
 public class TypeCours {
     
     //DDV

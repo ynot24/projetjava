@@ -12,9 +12,13 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 /**
- *
+ * 
+ * Classe qui implémente l'interface DAO de type Utilisateur
+ * 
  * @author Tony
+ * 
  */
+
 public class UtilisateurDAO implements DAO<Utilisateur>{ 
     
     @Override

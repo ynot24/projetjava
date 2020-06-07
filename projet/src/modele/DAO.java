@@ -6,7 +6,8 @@
 package modele;
 
 /**
- *
+ * Interface qui respecte le pattern DAO
+ * 
  * @author Tony
  * @param <T>
  */

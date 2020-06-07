@@ -12,9 +12,13 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 /**
- *
+ * 
+ * Classe qui implémente l'interface DAO de type SeanceGroupes
+ * 
  * @author Tony
+ * 
  */
+
 public class SeanceGroupesDAO implements DAO<SeanceGroupes>{
     
     @Override
@@ -107,7 +111,7 @@ public class SeanceGroupesDAO implements DAO<SeanceGroupes>{
         String pass = ""; //Variable de type String qui stockera son mot de passe
         String url = "jdbc:mysql://localhost/timetable?autoReconnect=true&useSSL=false"; //Variable de type String qui stockera le lien vers la base de donnée
         
-        if(sgUpdate.id_groupe != sgOriginal.id_groupe){
+        if(sgUpdate.getId_groupe() != sgOriginal.getId_groupe()){
             String query = "update seance_groupes set id_groupe=" + sgUpdate.getId_groupe() + " where id_seance=" + sgUpdate.getId_seance();
             try {
             //Création d'une connexion à la base de donnée

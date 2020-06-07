@@ -6,9 +6,13 @@
 package modele;
 
 /**
- *
+ * 
+ * Classe qui définit les attributs de la table seance_salles
+ * 
  * @author Tony
+ * 
  */
+
 public class SeanceSalles {
     
     //DDV
