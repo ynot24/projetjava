@@ -36,12 +36,12 @@ public class UtilisateurDAO implements DAO<Utilisateur>{
             Statement dbStatement = dbConnect.createStatement();
             ResultSet dbResult = dbStatement.executeQuery(query);
             if(dbResult.next()){
-                u.id = dbResult.getInt("id");
-                u.email = dbResult.getString("email");
-                u.password = dbResult.getString("password");
-                u.nom = dbResult.getString("nom");
-                u.prenom = dbResult.getString("prenom");
-                u.droit = dbResult.getInt("droit");
+                u.setId(dbResult.getInt("id"));
+                u.setEmail(dbResult.getString("email"));
+                u.setPassword(dbResult.getString("password"));
+                u.setNom(dbResult.getString("nom"));
+                u.setPrenom(dbResult.getString("prenom"));
+                u.setDroit(dbResult.getInt("droit"));
             }
             else{
                 System.out.println("Pas de résultat");
@@ -69,11 +69,12 @@ public class UtilisateurDAO implements DAO<Utilisateur>{
             Class.forName("com.mysql.jdbc.Driver");
             Connection dbConnect = DriverManager.getConnection(url, username, pass);
             PreparedStatement dbPreparedStatement = dbConnect.prepareStatement(query);
-            dbPreparedStatement.setString(2, userCreate.email);
-            dbPreparedStatement.setString(3, userCreate.password);
-            dbPreparedStatement.setString(4, userCreate.nom);
-            dbPreparedStatement.setString(5, userCreate.prenom);
-            dbPreparedStatement.setInt(6, userCreate.droit);
+            dbPreparedStatement.setInt(1, userCreate.getId());
+            dbPreparedStatement.setString(2, userCreate.getEmail());
+            dbPreparedStatement.setString(3, userCreate.getPassword());
+            dbPreparedStatement.setString(4, userCreate.getNom());
+            dbPreparedStatement.setString(5, userCreate.getPrenom());
+            dbPreparedStatement.setInt(6, userCreate.getDroit());
             dbPreparedStatement.executeUpdate();
             dbPreparedStatement.close();
             dbConnect.close();
@@ -89,7 +90,7 @@ public class UtilisateurDAO implements DAO<Utilisateur>{
         String username = "root"; //Variable de type String qui stockera l'identifiant de la base de données
         String pass = ""; //Variable de type String qui stockera son mot de passe
         String url = "jdbc:mysql://localhost/timetable?autoReconnect=true&useSSL=false"; //Variable de type String qui stockera le lien vers la base de donnée
-        String query = "delete from utilisateur where id=" + userDelete.id; //Variable de type String qui stockera la requête sql
+        String query = "delete from utilisateur where id=" + userDelete.getId(); //Variable de type String qui stockera la requête sql
         
         try {
             //Création d'une connexion à la base de donnée
@@ -108,15 +109,15 @@ public class UtilisateurDAO implements DAO<Utilisateur>{
     public void update(Utilisateur userUpdate) {
         
         Utilisateur userOriginal;
-        userOriginal = find(userUpdate.id);
+        userOriginal = find(userUpdate.getId());
         
         //Déclaration des variables
         String username = "root"; //Variable de type String qui stockera l'identifiant de la base de données
         String pass = ""; //Variable de type String qui stockera son mot de passe
         String url = "jdbc:mysql://localhost/timetable?autoReconnect=true&useSSL=false"; //Variable de type String qui stockera le lien vers la base de donnée
         
-        if(userUpdate.email != userOriginal.email){
-            String query = "update utilisateur set email=" + userUpdate.email + "where id=" + userUpdate.id;
+        if(userUpdate.getEmail() != userOriginal.getEmail()){
+            String query = "update utilisateur set email='" + userUpdate.getEmail() + "' where id=" + userUpdate.getId();
             try {
             //Création d'une connexion à la base de donnée
             Class.forName("com.mysql.jdbc.Driver");
@@ -129,8 +130,8 @@ public class UtilisateurDAO implements DAO<Utilisateur>{
                 System.out.println("ECHEC CONNEXION A LA BDD");
             }
         }
-        else if(userUpdate.password != userOriginal.password){
-            String query = "update utilisateur set password=" + userUpdate.password + "where id=" + userUpdate.id;
+        if(userUpdate.getPassword() != userOriginal.getPassword()){
+            String query = "update utilisateur set password='" + userUpdate.getPassword() + "' where id=" + userUpdate.getId();
             try {
             //Création d'une connexion à la base de donnée
             Class.forName("com.mysql.jdbc.Driver");
@@ -143,8 +144,8 @@ public class UtilisateurDAO implements DAO<Utilisateur>{
                 System.out.println("ECHEC CONNEXION A LA BDD");
             }
         }
-        else if(userUpdate.nom != userOriginal.nom){
-            String query = "update utilisateur set nom=" + userUpdate.nom + "where id=" + userUpdate.id;
+        if(userUpdate.getNom() != userOriginal.getNom()){
+            String query = "update utilisateur set nom='" + userUpdate.getNom() + "' where id=" + userUpdate.getId();
             try {
             //Création d'une connexion à la base de donnée
             Class.forName("com.mysql.jdbc.Driver");
@@ -157,8 +158,8 @@ public class UtilisateurDAO implements DAO<Utilisateur>{
                 System.out.println("ECHEC CONNEXION A LA BDD");
             }
         }
-        else if(userUpdate.prenom != userOriginal.prenom){
-            String query = "update utilisateur set prenom=" + userUpdate.prenom + "where id=" + userUpdate.id;
+        if(userUpdate.getPrenom() != userOriginal.getPrenom()){
+            String query = "update utilisateur set prenom='" + userUpdate.getPrenom() + "' where id=" + userUpdate.getId();
             try {
             //Création d'une connexion à la base de donnée
             Class.forName("com.mysql.jdbc.Driver");
@@ -171,8 +172,8 @@ public class UtilisateurDAO implements DAO<Utilisateur>{
                 System.out.println("ECHEC CONNEXION A LA BDD");
             }
         }
-        else if(userUpdate.droit != userOriginal.droit){
-            String query = "update utilisateur set droit=" + userUpdate.droit + "where id=" + userUpdate.id;
+        if(userUpdate.getDroit() != userOriginal.getDroit()){
+            String query = "update utilisateur set droit=" + userUpdate.getDroit() + " where id=" + userUpdate.getId();
             try {
             //Création d'une connexion à la base de donnée
             Class.forName("com.mysql.jdbc.Driver");
